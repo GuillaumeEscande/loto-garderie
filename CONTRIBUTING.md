@@ -4,7 +4,7 @@ Merci de votre intérêt pour le projet.
 
 ## Signaler un bug ou proposer une idée
 
-Ouvrez une [issue](https://github.com/VOTRE_USER/garderie/issues) en décrivant le problème ou la suggestion.
+Ouvrez une [issue](https://github.com/GuillaumeEscande/loto-garderie/issues) en décrivant le problème ou la suggestion.
 
 ## Proposer une modification (Pull Request)
 
