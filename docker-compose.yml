@@ -1,0 +1,13 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      # Monter les sources (pas de rebuild pour modifier le code)
+      - .:/var/www/html
+      # Persistance de la base SQLite
+      - garderie-data:/var/www/html/data
+
+volumes:
+  garderie-data:

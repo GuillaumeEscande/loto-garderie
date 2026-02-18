@@ -1,0 +1,37 @@
+<?php
+/**
+ * Configuration de l'application Garderie
+ * À adapter selon l'hébergement (chemin BDD, etc.)
+ */
+
+// Répertoire de base de l'application
+define('BASE_PATH', __DIR__);
+
+// Base SQLite : fichier dans un dossier data (écriture possible sur hébergement gratuit)
+$dataDir = BASE_PATH . '/data';
+if (!is_dir($dataDir)) {
+    mkdir($dataDir, 0755, true);
+}
+define('DB_PATH', $dataDir . '/garderie.sqlite');
+
+// DSN PDO SQLite
+define('DB_DSN', 'sqlite:' . DB_PATH);
+
+// Fuseau horaire
+date_default_timezone_set('Europe/Paris');
+
+// Secret pour l'accès à l'interface complète (liste, logbook, entrée/sortie)
+// À définir en production ; sans ce secret, seul le formulaire d'inscription public est accessible.
+define('ADMIN_SECRET', 'change-me-in-production');
+
+// Limites de taille des champs (sécurité : HTML maxlength + validation PHP + CHECK en base)
+define('CHILD_FIRSTNAME_MAX', 20);
+define('CHILD_LASTNAME_MAX', 20);
+define('CONTACT_LASTNAME_MAX', 20);
+define('CONTACT_FIRSTNAME_MAX', 20);
+define('CONTACT_PHONE_MAX', 10);
+define('ADMIN_SECRET_MAX', 20);
+
+// Affichage des erreurs (à désactiver en production si besoin)
+error_reporting(E_ALL);
+ini_set('display_errors', 1);

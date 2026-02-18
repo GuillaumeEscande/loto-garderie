@@ -1,0 +1,9 @@
+.git
+.gitignore
+README.md
+LICENSE
+CONTRIBUTING.md
+.dockerignore
+Dockerfile
+docker-compose.yml
+data/*.sqlite
