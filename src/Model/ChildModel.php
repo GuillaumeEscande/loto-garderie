@@ -13,15 +13,47 @@ class ChildModel
 {
     public function __construct(private PDO $pdo) {}
 
-    public function getAllWithStatus(): array
+    /**
+     * Liste des enfants avec statut, filtrage et tri.
+     * @param string $filter 'all' | 'present' | 'absent'
+     * @param string $search Recherche dans prénom et nom (tronquée à 100 car.)
+     * @return array
+     */
+    public function getAllWithStatusFiltered(string $filter = 'all', string $search = ''): array
     {
+        $search = mb_substr(trim($search), 0, 100, 'UTF-8');
+        $params = [];
+
         $sql = "
-            SELECT c.id, c.lastname, c.firstname, c.created_at,
-                   (SELECT type FROM logbook WHERE child_id = c.id ORDER BY created_at DESC LIMIT 1) AS last_status
-            FROM children c
-            ORDER BY c.lastname, c.firstname
+            SELECT * FROM (
+                SELECT c.id, c.lastname, c.firstname, c.created_at,
+                       (SELECT type FROM logbook WHERE child_id = c.id ORDER BY created_at DESC LIMIT 1) AS last_status
+                FROM children c
+            ) AS t
+            WHERE 1=1
         ";
-        $st = $this->pdo->query($sql);
+
+        if ($filter === 'present') {
+            $sql .= " AND last_status = 'entree'";
+        } elseif ($filter === 'absent') {
+            $sql .= " AND (last_status IS NULL OR last_status = 'sortie')";
+        }
+
+        if ($search !== '') {
+            $sql .= " AND (firstname LIKE ? OR lastname LIKE ?)";
+            $term = '%' . $search . '%';
+            $params[] = $term;
+            $params[] = $term;
+        }
+
+        $sql .= " ORDER BY firstname, lastname";
+
+        if ($params === []) {
+            $st = $this->pdo->query($sql);
+        } else {
+            $st = $this->pdo->prepare($sql);
+            $st->execute($params);
+        }
         return $st->fetchAll(PDO::FETCH_ASSOC) ?: [];
     }
 

@@ -12,3 +12,27 @@
         font-size: 16px; /* évite le zoom iOS sur focus */
     }
 }
+
+/* Filtres liste : boutons tactiles mobile/tablette */
+.filter-btn-inactive {
+    @apply bg-slate-100 text-slate-600 border-2 border-transparent;
+}
+.filter-btn-inactive:hover {
+    @apply bg-slate-200 text-slate-800;
+}
+.filter-btn-inactive:active {
+    @apply scale-[0.98];
+}
+
+.filter-btn-active {
+    @apply border-2 font-semibold;
+}
+.filter-btn-active.filter-btn-present {
+    @apply bg-green-100 text-green-800 border-green-300;
+}
+.filter-btn-active.filter-btn-absent {
+    @apply bg-amber-100 text-amber-800 border-amber-300;
+}
+.filter-btn-active:not(.filter-btn-present):not(.filter-btn-absent) {
+    @apply bg-emerald-100 text-emerald-800 border-emerald-400;
+}

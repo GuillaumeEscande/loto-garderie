@@ -19,9 +19,15 @@ class ChildController
 
     public function list(): void
     {
-        $children = $this->childModel->getAllWithStatus();
+        $filter = isset($_GET['filter']) && in_array($_GET['filter'], ['all', 'present', 'absent'], true)
+            ? $_GET['filter'] : 'all';
+        $search = trim((string) ($_GET['search'] ?? ''));
+
+        $children = $this->childModel->getAllWithStatusFiltered($filter, $search);
         $this->render('children/list', [
             'children' => $children,
+            'filter' => $filter,
+            'search' => $search,
         ]);
     }
 

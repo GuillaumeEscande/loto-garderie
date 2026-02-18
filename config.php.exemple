@@ -22,7 +22,7 @@ date_default_timezone_set('Europe/Paris');
 
 // Secret pour l'accès à l'interface complète (liste, logbook, entrée/sortie)
 // À définir en production ; sans ce secret, seul le formulaire d'inscription public est accessible.
-define('ADMIN_SECRET', 'change-me-in-production');
+define('ADMIN_SECRET', 'change-me');
 
 // Limites de taille des champs (sécurité : HTML maxlength + validation PHP + CHECK en base)
 define('CHILD_FIRSTNAME_MAX', 20);
