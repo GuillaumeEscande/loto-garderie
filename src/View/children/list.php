@@ -10,7 +10,14 @@ require dirname(__DIR__) . '/partials/header.php';
                 <h1 class="text-xl font-semibold">Garderie</h1>
                 <p class="text-emerald-100 text-sm">Liste des enfants</p>
             </div>
-            <a href="index.php?action=logout" class="text-emerald-100 text-sm hover:text-white whitespace-nowrap">Déconnexion</a>
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2 bg-emerald-700 rounded-xl px-3 py-1.5">
+                    <span class="inline-block w-2.5 h-2.5 rounded-full <?= $presentCount > 0 ? 'bg-green-300 animate-pulse' : 'bg-emerald-400' ?>"></span>
+                    <span class="text-2xl font-bold leading-none"><?= (int) $presentCount ?></span>
+                    <span class="text-emerald-200 text-xs">présent<?= $presentCount > 1 ? 's' : '' ?></span>
+                </div>
+                <a href="index.php?action=logout" class="text-emerald-100 text-sm hover:text-white whitespace-nowrap">Déconnexion</a>
+            </div>
         </div>
     </header>
 

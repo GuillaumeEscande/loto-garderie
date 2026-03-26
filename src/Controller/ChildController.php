@@ -24,10 +24,12 @@ class ChildController
         $search = trim((string) ($_GET['search'] ?? ''));
 
         $children = $this->childModel->getAllWithStatusFiltered($filter, $search);
+        $presentCount = $this->childModel->countPresent();
         $this->render('children/list', [
             'children' => $children,
             'filter' => $filter,
             'search' => $search,
+            'presentCount' => $presentCount,
         ]);
     }
 

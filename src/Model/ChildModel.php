@@ -92,6 +92,16 @@ class ChildModel
         }
     }
 
+    /** Nombre d'enfants actuellement présents (dernier statut = 'entree'). */
+    public function countPresent(): int
+    {
+        $sql = "
+            SELECT COUNT(*) FROM children c
+            WHERE (SELECT type FROM logbook WHERE child_id = c.id ORDER BY created_at DESC LIMIT 1) = 'entree'
+        ";
+        return (int) $this->pdo->query($sql)->fetchColumn();
+    }
+
     /** Dernier statut logbook : 'entree' | 'sortie' | null */
     public function getCurrentStatus(int $childId): ?string
     {
